@@ -50,8 +50,6 @@ See also [npm documentation](https://docs.npmjs.com/files/package.json), [packag
   * [`resolutions`](#resolutions)
 - [TypeScript](#typescript)
   * [`types`](#types)
-- [browserslist](#browserslist)
-  * [`browserslist`](#browserslist)
 - [Package bundlers](#package-bundlers)
   * [`module`](#module)
   * [`browser`](#browser)
@@ -62,8 +60,8 @@ See also [npm documentation](https://docs.npmjs.com/files/package.json), [packag
   * [`jsnext:main`](#jsnextmain)
 - [webpack](#webpack)
   * [`sideEffects`](#sideeffects)
-- [browserify](#browserify)
-  * [`browserify.transform`](#browserifytransform)
+- [browserslist](#browserslist)
+  * [`browserslist`](#browserslist)
 - [babel](#babel)
   * [`babel`](#babel)
 - [eslint](#eslint)
@@ -74,10 +72,11 @@ See also [npm documentation](https://docs.npmjs.com/files/package.json), [packag
   * [`stylelint`](#stylelint)
 - [size-limit](#size-limit)
   * [`size-limit`](#size-limit)
+- [pwmetrics](#pwmetrics)
+  * [`pwmetrics`](#pwmetrics)
 - [Other](#other)
   * [`preferGlobal`](#preferglobal)
   * [`style`](#style)
-  * [`less`](#less)
 
 <!-- tocstop -->
 
@@ -576,44 +575,6 @@ Source: [TypeScript documentation](https://www.typescriptlang.org/docs/handbook/
 
 Note: in Flow they use [different approach](https://medium.com/netscape/shipping-flowtype-definitions-in-npm-packages-c987917efb65)
 
-## browserslist
-
-### `browserslist`
-
-💖 Library to share target browsers between different front-end tools.
-It is used in:
-
-* [Autoprefixer]
-* [babel-preset-env]
-  (external config in `package.json` or `browserslist` files supported in 2.0)
-* [postcss-preset-env]
-* [eslint-plugin-compat]
-* [stylelint-no-unsupported-browser-features]
-* [postcss-normalize]
-
-All tools that rely on Browserslist will find its config automatically,
-when you add the following to `package.json`:
-
-```json
-{
-  "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ]
-}
-```
-
-[stylelint-no-unsupported-browser-features]: https://github.com/ismay/stylelint-no-unsupported-browser-features
-[eslint-plugin-compat]:                      https://github.com/amilajack/eslint-plugin-compat
-[postcss-preset-env]: https://github.com/jonathantneal/postcss-preset-env
-[babel-preset-env]:                          https://github.com/babel/babel/tree/master/packages/babel-preset-env
-[postcss-normalize]:                         https://github.com/jonathantneal/postcss-normalize
-[Autoprefixer]:                              https://github.com/postcss/autoprefixer
-
-Source: [browserslist](https://github.com/ai/browserslist).
-
-See also: [Create React App Support](https://github.com/facebookincubator/create-react-app/issues/892).
-
 ## Package bundlers
 
 ### `module`
@@ -626,7 +587,7 @@ Supported by: [rollup](https://github.com/rollup/rollup-plugin-node-resolve), [w
 
 The `browser` field is provided by a module author as a hint to javascript bundlers or component tools when packaging modules for client side use. Proposal is [here](https://github.com/defunctzombie/package-browser-field-spec).
 
-Supported by: [rollup](https://github.com/rollup/rollup-plugin-node-resolve), [webpack](https://webpack.js.org/configuration/resolve/#resolve-mainfields), [browserify](https://github.com/browserify/browserify-handbook#browser-field)
+Supported by: [rollup](https://github.com/rollup/rollup-plugin-node-resolve), [webpack](https://webpack.js.org/configuration/resolve/#resolve-mainfields)
 
 Support requested: [babel-plugin-module-resolver](https://github.com/tleunen/babel-plugin-module-resolver/issues/41)
 
@@ -687,11 +648,43 @@ Indicates that the package's modules have no side effects (on evaluation) and on
 
 See also: [`sideEffects` example](https://github.com/webpack/webpack/tree/next/examples/side-effects), [proposal for marking functions as pure](https://github.com/rollup/rollup/issues/1293), [eslint-plugin-tree-shaking](https://www.npmjs.com/package/eslint-plugin-tree-shaking).
 
-## browserify
+## browserslist
 
-### `browserify.transform`
+### `browserslist`
 
-Documentation is [here](https://github.com/browserify/browserify-handbook#browserifytransform-field)
+💖 Library to share target browsers between different front-end tools.
+It is used in:
+
+* [Autoprefixer]
+* [babel-preset-env]
+  (external config in `package.json` or `browserslist` files supported in 2.0)
+* [postcss-preset-env]
+* [eslint-plugin-compat]
+* [stylelint-no-unsupported-browser-features]
+* [postcss-normalize]
+
+All tools that rely on Browserslist will find its config automatically,
+when you add the following to `package.json`:
+
+```json
+{
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}
+```
+
+[stylelint-no-unsupported-browser-features]: https://github.com/ismay/stylelint-no-unsupported-browser-features
+[eslint-plugin-compat]:                      https://github.com/amilajack/eslint-plugin-compat
+[postcss-preset-env]: https://github.com/jonathantneal/postcss-preset-env
+[babel-preset-env]:                          https://github.com/babel/babel/tree/master/packages/babel-preset-env
+[postcss-normalize]:                         https://github.com/jonathantneal/postcss-normalize
+[Autoprefixer]:                              https://github.com/postcss/autoprefixer
+
+Source: [browserslist](https://github.com/ai/browserslist).
+
+See also: [Create React App Support](https://github.com/facebookincubator/create-react-app/issues/892).
 
 ## babel
 
@@ -742,6 +735,29 @@ If you're using this library you can define its config in `package.json`:
 
 Source: [size-limit](https://github.com/ai/size-limit)
 
+## PWMetrics
+
+### `pwmetrics`
+You cen specify options in `package.json`:
+
+```json
+{
+  "pwmetrics": {
+    "url": "http://example.com/",
+    "expectations": {
+      "ttfcp": {
+        "warn": ">=1500",
+        "error": ">=2000"
+      },
+    }
+  }
+}
+```
+
+All available options are [here](https://github.com/paulirish/pwmetrics#all-available-configuration-options)
+
+Source: [pwmetrics](https://github.com/paulirish/pwmetrics)
+
 ## Other
 
 ### `preferGlobal`
@@ -754,13 +770,5 @@ This option used to trigger an npm warning, but it will no longer warn. It is pu
 
 The `style` attribute in `package.json` is useful for importing CSS packages. Proposal is [here](https://jaketrent.com/post/package-json-style-attribute/).
 
-Supported by: [parcelify](https://github.com/rotundasoftware/parcelify), [npm-less](https://github.com/Raynos/npm-less), [rework-npm](https://github.com/reworkcss/rework-npm), [npm-css](https://github.com/defunctzombie/npm-css#packagejson).
-
 See also: [istf-spec](https://github.com/cssinjs/istf-spec).
-
-### `less`
-
-Same as `style` but for less.
-
-Supported by: [npm-less](https://github.com/Raynos/npm-less).
 
